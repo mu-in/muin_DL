@@ -23,4 +23,4 @@
 
 **2. Multi-class Classification**
 
-**3. Object Detection **
+**3. Object Detection**
