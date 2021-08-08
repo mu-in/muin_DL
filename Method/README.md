@@ -22,3 +22,5 @@
 **1. Metric Learning**
 
 **2. Multi-class Classification**
+
+**3. Object Detection **
