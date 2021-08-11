@@ -27,8 +27,8 @@
 
 #### 우선 , 8월 내로 진행해볼 사항
 
-1. Data Augmentation -> 우선은 Copy and Paste Augmentation을 진행하기로 함 , Detection이 필연적으로 필요할 것 같아 Multi-object image data가 필요함
+1. **Data Augmentation** -> 우선은 Copy and Paste Augmentation을 진행하기로 함 , Detection이 필연적으로 필요할 것 같아 Multi-object image data가 필요함
 
-2. Image Classification -> Detection으로 Object를 잘 검출하면 그 box 이미지를 Classification Network에 던져줄 예정이므로 Image Classification 성능도 찍어볼 예정
+2. **Image Classification** -> Detection으로 Object를 잘 검출하면 그 box 이미지를 Classification Network에 던져줄 예정이므로 Image Classification 성능도 찍어볼 예정
 
-3. Object Detection -> 상품을 분류하는 것은 아니고 , 어느 상품군인지까지만 분류 -> **Object의 위치를 잘 잡는 것이 핵심** 
+3. **Object Detection** -> 상품을 분류하는 것은 아니고 , 어느 상품군인지까지만 분류 -> **Object의 위치를 잘 잡는 것이 핵심** 
