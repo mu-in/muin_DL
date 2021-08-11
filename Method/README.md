@@ -13,14 +13,22 @@
 * **Data Augmentation 기법을 적용하지 않는 다면 우리의 Framework는 Category를 하나씩 학습 하지만 , Inference는 Multi-label Classifiaction이 가능하도록 설계해야 함**
   * 최대한 이 방법을 고수하고 싶음 , 실제 편의점에서도 새로운 상품이 들어올 때 그 상품만 학습을 진행해도 문제가 없게끔 설계해야 더 가치있다고 생각이 듬
 
-#### 즉 , 정리하면 단일 이미지 데이터셋을 가지고 학습을 진행했을 때 Multiclass Inference가 가능한 모델을 설계하는 것이 목표
-
 ## Method Keyword
 
 > 방법론 Survey를 진행할 때 , Computing Resource가 어느정도 요구 될지도 고려를 해야 함
 
-**1. Metric Learning**
+**1. Object Detection**
 
-**2. Multi-class Classification**
+**2. Retrieval**
 
-**3. Object Detection**
+**3. Image Classification**
+
+---
+
+#### 우선 , 8월 내로 진행해볼 사항
+
+1. Data Augmentation -> 우선은 Copy and Paste Augmentation을 진행하기로 함 , Detection이 필연적으로 필요할 것 같아 Multi-object image data가 필요함
+
+2. Image Classification -> Detection으로 Object를 잘 검출하면 그 box 이미지를 Classification Network에 던져줄 예정이므로 Image Classification 성능도 찍어볼 예정
+
+3. Object Detection -> 상품을 분류하는 것은 아니고 , 어느 상품군인지까지만 분류 -> **Object의 위치를 잘 잡는 것이 핵심** 
