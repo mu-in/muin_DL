@@ -69,9 +69,9 @@ Dataset
 
 #### Dataset Split
 Please, refer to the following for the data split list.
-- [Train List](dataset/split/train.txt)
-- [Validation List](dataset/split/validation.txt)
-- [Test List](dataset/split/test.txt)
+- [Train List](./dataset/split/train.txt)
+- [Validation List](./dataset/split/validation.txt)
+- [Test List](./dataset/split/test.txt)
 
 #### Error List
 Please, refer to the following for a list of errors that occurred during the preprocessing process.
