@@ -1,0 +1,1 @@
+from .LotteNet import LotteNet

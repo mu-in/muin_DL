@@ -22,19 +22,23 @@ The following sections list the requirements for training/evaluation the model.
 ### Hardware
 Tested on:
 - **CPU** - 2 x Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz  
+<img src="/media/CPU.png" width="40%" height="40%">
 
 - **RAM** - 256 GB  
+<img src="/media/Memory.png" width="65%" height="65%">
 
 - **GPU** - 8 x GeForce RTX 2080 Ti (11 GB)  
+<img src="/media/GPUs.png" width="50%" height="50%">
 
 - **SSD** - Samsung MZ7LH3T8 (3.5 TB)  
-
+<img src="/media/Storage.png" width="50%" height="50%">  
+  
 Terminal screen capture images are located inside the [media](media) folder.
 
 ### Software
 Tested on:
 - [Ubuntu 18.04](https://ubuntu.com/)  
-
+<img src="/media/OS.png" width="85%" height="85%">
 
 - [Python 3.6](https://www.python.org/) 
 - [NVIDIA Driver 440](https://www.nvidia.com/Download/index.aspx)

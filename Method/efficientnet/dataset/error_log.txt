@@ -1,0 +1,82 @@
+/disk1/nyw/raw_data
+check folder structure
+check class duplicate
+15
+10038
+check image/annotation matching
+check annotation files
+make data dict
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/주류/03301200001/03301200001_30_m_24.xml
+Image 2 crop error: /disk1/nyw/raw_data/2.Validation/라벨링데이터/주류/00001200026/00001200026_60_m_20.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/통조림_안주/00561400001/00561400001_30_m_3.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/01070100009/01070100009_00_s_21.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/07690100001/07690100001_00_m_10.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/10720100015/10720100015_30_m_5.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/10720100015/10720100015_30_m_5.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_5.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_5.xml
+Image 4 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_5.xml
+Image 5 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_5.xml
+Image 6 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_5.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_10.xml
+Image 4 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_10.xml
+Image 5 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/14280100001/14280100001_60_m_10.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/09090100002/09090100002_60_m_18.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/과자/09580100003/09580100003_00_m_10.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/홈클린/04001500015/04001500015_00_s_10.xml
+Image 1 crop error: /disk1/nyw/raw_data/2.Validation/라벨링데이터/홈클린/09411500067/09411500067_00_s_13.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/커피차/07051300004/07051300004_60_m_11.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/커피차/01241300002/01241300002_00_m_21.xml
+Image 1 crop error: /disk1/nyw/raw_data/3.Test/라벨링데이터/음료/11030900010/11030900010_00_s_19.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/음료/03050900008/03050900008_60_m_7.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/음료/02510900021/02510900021_60_m_8.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/음료/10220900057/10220900057_30_m_10.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/음료/03050900192/03050900192_60_m_16.xml
+Image 3 crop error: /disk1/nyw/raw_data/2.Validation/라벨링데이터/음료/05790900001/05790900001_0_m_12.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/유제품/06390800027/06390800027_30_s_4.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/02181100128/02181100128_30_s_8.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/02181100148/02181100148_00_m_20.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/02181100148/02181100148_30_s_24.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_14.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_14.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_30_s_7.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_2.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_2.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_11.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_11.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_13.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_13.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_18.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_18.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_30_s_5.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_17.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08991100011/08991100011_60_m_17.xml
+Image 0 crop error: /disk1/nyw/raw_data/3.Test/라벨링데이터/이_미용/08991100011/08991100011_60_m_15.xml
+Image 1 crop error: /disk1/nyw/raw_data/3.Test/라벨링데이터/이_미용/08991100011/08991100011_60_m_15.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/05581100001/05581100001_00_s_14.xml
+Image 2 crop error: /disk1/nyw/raw_data/3.Test/라벨링데이터/이_미용/08251100054/08251100054_00_m_17.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/12581100003/12581100003_30_m_8.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/02201100007/02201100007_30_s_18.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/08251100137/08251100137_60_m_4.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/02631100003/02631100003_00_m_20.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/09081100009/09081100009_30_m_9.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/09081100009/09081100009_30_m_9.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/02201100009/02201100009_30_m_21.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/10141100001/10141100001_00_m_4.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/09411100021/09411100021_00_s_19.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/이_미용/10391100005/10391100005_30_m_5.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/생활용품/15370600004/15370600004_00_m_2.xml
+Image 0 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/생활용품/10590600012/10590600012_00_s_22.xml
+Image 1 crop error: /disk1/nyw/raw_data/2.Validation/라벨링데이터/상온HMR/01910500002/01910500002_00_s_18.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/상온HMR/13180500001/13180500001_30_m_11.xml
+Image 1 crop error: /disk1/nyw/raw_data/3.Test/라벨링데이터/상온HMR/07930500002/07930500002_60_m_19.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/상온HMR/06700500001/06700500001_00_m_4.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/상온HMR/08130500001/08130500001_30_m_20.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/상온HMR/06130500004/06130500004_00_m_14.xml
+Image 3 crop error: /disk1/nyw/raw_data/2.Validation/라벨링데이터/상온HMR/06130500004/06130500004_30_m_24.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/상온HMR/02320500001/02320500001_60_m_9.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/상온HMR/11120500002/11120500002_60_s_19.xml
+Image 1 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/소스/05630700003/05630700003_00_s_5.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/소스/12880700001/12880700001_60_m_21.xml
+Image 2 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/의약외품/08601000002/08601000002_30_m_17.xml
+Image 3 crop error: /disk1/nyw/raw_data/1.Training/라벨링데이터/면류/01530300027/01530300027_60_m_12.xml
