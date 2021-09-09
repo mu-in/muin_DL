@@ -70,10 +70,11 @@ if __name__ == '__main__':
                 xmlString = f.read()
             f.close()
             obj_Info = json.loads(json.dumps(xmltodict.parse(xmlString), indent=4))
-
-            if 'dict' not in str(type(obj_Info['comp_cd']['annotation']['object'])): # 복수 상품이미지 고려 X
-                continue
             
+            if 'object' not in obj_Info['comp_cd']['annotation'].keys():
+                continue
+            elif 'dict' not in str(type(obj_Info['comp_cd']['annotation']['object'])): # 복수 상품이미지 고려 X
+                continue
             # to_copy image
             to_copy = cv2.imread(args.root_file_path + '/' + obj_Info['comp_cd']['div_cd']['item_cd'] + '/' + obj_Info['comp_cd']['annotation']['filename'] , cv2.IMREAD_COLOR) 
 
