@@ -16,7 +16,8 @@
 ### Embedded board
   * H/W : Nvidia Jetson NANO
   * OS : Ubuntu 18.04.5
-  * OpenCV : 3.4.5
+  * OpenCV : 4.5.3.56
+  * Python : 3.6.9
 
 ### Demo
 
