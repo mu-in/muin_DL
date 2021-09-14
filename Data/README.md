@@ -13,7 +13,7 @@
 ---
 # Data Preprocessing
 
-### 최종 데이터 전처리 코드: [.ipynb]()
+### 최종 데이터 전처리 코드: [.ipynb](https://github.com/mu-in/muin_DL/blob/main/Data/LOTTE_Data_Augmentation.ipynb)
 
 ![README](https://user-images.githubusercontent.com/32587029/133219260-67a994d2-8cee-4867-981e-903d9945a8f5.PNG)
 
@@ -32,7 +32,7 @@
 
 ![README2](https://user-images.githubusercontent.com/32587029/133219268-8a59f21c-e457-4c22-90c9-c5aee0466d52.PNG)
 
-* 초기 아이디어: [.pdf]()
+* 초기 아이디어: [.pdf](https://github.com/mu-in/muin_DL/blob/main/Data/DataAugmentationPlan.pdf)
 
 
 
