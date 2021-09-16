@@ -38,7 +38,7 @@
 
 > 1. 데이터 전처리 코드를 활용하여 롯데정보통신 상품이미지 샘플 데이터에 적용
 > 2. Train: 4200 장 / Test: 835 장 생성
-> 3. SSD 모델을 활용하여 경향성 평가 [.mp4]()
+> 3. SSD 모델을 활용하여 경향성 평가 [.mp4](https://github.com/mu-in/muin_DL/blob/main/Data/detected_video_semi.mp4)
 > > * Miss Rate: 0% / mAP: 0.909% 달성 
 
 
