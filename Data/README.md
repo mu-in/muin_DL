@@ -20,7 +20,7 @@
 * 배경이미지(=계산대)를 생성하고 롯데정보통신 상품이미지(단일 상품만 고려)를 순차적으로 축소하여 배경 이미지에 삽입
 > 1. 배경이미지 해상도: 2988 x 2988 / 색(RGB): (173, 255, 47) - 계산대의 색
 > 2. 배경이미지 속 상품들의 위치 - 랜덤 좌표 적용 (Occlusion issue 10번 발생시 무시)
-> 3. Jacard Overlap(IOU) 0.05 이상 발생하지 않도록 코드 작성
+> 3. Jacard Overlap(IOU) 0.05 이상 발생하지 않도록 코드 작성Cancel changes
 > 4. 상품이미지 축소 비율: 30% 로 축소 (resize ratio = 0.3)
 > 5. Annotation file (.json)
 > > * categories - 합성이미지 속 상품들의 라벨
@@ -34,6 +34,12 @@
 
 * 초기 아이디어: [.pdf](https://github.com/mu-in/muin_DL/blob/main/Data/DataAugmentationPlan.pdf)
 
+### 샘플 합성 데이터 생성 및 평가
+
+> 1. 데이터 전처리 코드를 활용하여 롯데정보통신 상품이미지 샘플 데이터에 적용
+> 2. Train: 4200 장 / Test: 835 장 생성
+> 3. SSD 모델을 활용하여 경향성 평가 [.mp4]()
+> > * Miss Rate: 0% / mAP: 0.909% 달성 
 
 
 
