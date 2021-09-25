@@ -41,8 +41,27 @@
 > 3. SSD 모델을 활용하여 경향성 평가 [.mp4](https://github.com/mu-in/muin_DL/blob/main/Data/detected_video_semi.mp4)
 > > * Miss Rate: 0% / mAP: 0.909% 달성 
 
+### 시뮬레이션
 
+> 1. 우드락(계산대), 상품(샘플 데이터셋에 속하는 종류) 직접 구입
+> 2. LED 스탠드(그림자 제거)를 이용하여 계산대 환경 조성 후 촬영
+> 3. SSD 모델을 활용하여 상품 DETECT -> 몇가지 문제점 발견
 
+* [시뮬레이션 준비물]
+![simul_1](https://user-images.githubusercontent.com/32587029/134758521-9f260bb1-b042-432d-80f4-17f493d3f6e4.PNG)
+
+* [시뮬레이션 결과]
+> 1. Max Overlap (NMS) = 0.5
+![simul_2](https://user-images.githubusercontent.com/32587029/134758544-85ab5fd3-cc0d-4a55-8354-bdd2b41362ab.PNG)
+
+> 2. Max Overlap (NMS) = 0.05
+![simul_3](https://user-images.githubusercontent.com/32587029/134758545-b2842230-5192-402b-837b-7f79de392b03.PNG)
+
+##### 결과 - 문제점
+> 1. 1개의 상품을 부분부분 인식하여 다수의 상품으로 DETECT
+> > - NMS 기준을 낮훈다고 하여도 완벽히 해결 X (바싹 붙어있는 다른 물체를 인식하지 못함)
+> > - 성능이 좋은 YOLO.v5 모델을 사용했을 때도 이러한 문제가 발생하는지 확인 필요
+> 2. 특히, 과자(얼룩이 많은)와 같이 모델이 인식하기 어려운 상품에서 해당 문제 발생 
 
 
 
