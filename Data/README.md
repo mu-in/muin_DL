@@ -20,7 +20,7 @@
 * 배경이미지(=계산대)를 생성하고 롯데정보통신 상품이미지(단일 상품만 고려)를 순차적으로 축소하여 배경 이미지에 삽입
 > 1. 배경이미지 해상도: 2988 x 2988 / 색(RGB): (173, 255, 47) - 계산대의 색
 > 2. 배경이미지 속 상품들의 위치 - 랜덤 좌표 적용 (Occlusion issue 10번 발생시 무시)
-> 3. Jacard Overlap(IOU) 0.05 이상 발생하지 않도록 코드 작성
+> 3. Jacard Overlap(IOU) 0.05 이상 발생하지 않도록 코드 작성Cancel changes
 > 4. 상품이미지 축소 비율: 30% 로 축소 (resize ratio = 0.3)
 > 5. Annotation file (.json)
 > > * categories - 합성이미지 속 상품들의 라벨
@@ -34,9 +34,34 @@
 
 * 초기 아이디어: [.pdf](https://github.com/mu-in/muin_DL/blob/main/Data/DataAugmentationPlan.pdf)
 
+### 샘플 합성 데이터 생성 및 평가
 
+> 1. 데이터 전처리 코드를 활용하여 롯데정보통신 상품이미지 샘플 데이터에 적용
+> 2. Train: 4200 장 / Test: 835 장 생성
+> 3. SSD 모델을 활용하여 경향성 평가 [.mp4](https://github.com/mu-in/muin_DL/blob/main/Data/detected_video_semi.mp4)
+> > * Miss Rate: 0% / mAP: 0.909% 달성 
 
+### 시뮬레이션
 
+> 1. 우드락(계산대), 상품(샘플 데이터셋에 속하는 종류) 직접 구입
+> 2. LED 스탠드(그림자 제거)를 이용하여 계산대 환경 조성 후 촬영
+> 3. SSD 모델을 활용하여 상품 DETECT -> 몇가지 문제점 발견
+
+* [시뮬레이션 준비물]
+![simul_1](https://user-images.githubusercontent.com/32587029/134758521-9f260bb1-b042-432d-80f4-17f493d3f6e4.PNG)
+
+* [시뮬레이션 결과]
+> 1. Max Overlap (NMS) = 0.5
+![simul_2](https://user-images.githubusercontent.com/32587029/134758544-85ab5fd3-cc0d-4a55-8354-bdd2b41362ab.PNG)
+
+> 2. Max Overlap (NMS) = 0.05
+![simul_3](https://user-images.githubusercontent.com/32587029/134758545-b2842230-5192-402b-837b-7f79de392b03.PNG)
+
+##### 결과 - 문제점
+> 1. 1개의 상품을 부분부분 인식하여 다수의 상품으로 DETECT
+> > - NMS 기준을 낮훈다고 하여도 완벽히 해결 X (바싹 붙어있는 다른 물체를 인식하지 못함)
+> > - 성능이 좋은 YOLO.v5 모델을 사용했을 때도 이러한 문제가 발생하는지 확인 필요
+> 2. 특히, 과자(얼룩이 많은)와 같이 모델이 인식하기 어려운 상품에서 해당 문제 발생 
 
 
 
