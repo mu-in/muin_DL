@@ -64,6 +64,8 @@ def CoPy_and_Paste(file_list,args,index):
             continue
         elif int(list(obj_Info['comp_cd']['annotation']['size'].values())[0]) != 2988:
             continue
+        elif os.path.isfile(os.path.join(args.root_path,'img',obj_Info['comp_cd']['div_cd']['item_cd'],obj_Info['comp_cd']['annotation']['filename'])) == False:
+            continue
         # to_copy image
         to_copy = cv2.imread(os.path.join(args.root_path,'img',obj_Info['comp_cd']['div_cd']['item_cd'],obj_Info['comp_cd']['annotation']['filename']) , cv2.IMREAD_COLOR) 
 
