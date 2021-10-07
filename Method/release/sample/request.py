@@ -4,7 +4,7 @@ from PIL import Image
 
 if __name__ =='__main__':
     resp = requests.post("http://localhost:5000/predict",
-                     files={"file": open('/home/gtlim/workspace/Muin_Term_Project/FLASK/kitten.jpg','rb')})
+                     files={"file": open('./kitten.jpg','rb')})
     response = resp.json()
     
     print(response)
