@@ -15,7 +15,7 @@ def finding_item(DB_list , query, top_k):
 
 if __name__ == '__main__':
 
-    DataBase = pd.read_csv('/home/gtlim/workspace/Muin_Term_Project/text_search_system/DataBase.csv')
+    DataBase = pd.read_csv('./DataBase.csv')
     DB_list = DataBase['name'].to_numpy()
 
     query = input("찾고자 하는 물품을 입력하세요 : ")
