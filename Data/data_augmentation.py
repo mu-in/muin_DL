@@ -131,8 +131,8 @@ def CoPy_and_Paste(file_list,args,index):
     f = open(os.path.join(args.save_path,'annotation',f"img_{index}.txt"), 'w')
     for category , box , resolution in zip(categories, boxes, resolutions):
         box = get_COCO_format_box(box,resolution)
-        f.write(str(category)+' ') # class는 object 하나로 통일
-        f.write(str(box[1])+' ')
+        f.write(str(0)+' ') # class는 object 하나로 통일
+        f.write(str(box[0])+' ')
         f.write(str(box[1])+' ')
         f.write(str(box[2])+' ')
         f.write(str(box[3])+'\n')
