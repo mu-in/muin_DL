@@ -1,20 +1,51 @@
 import io
 import json
-
-from torchvision import models
+import torch
+import torch.nn as nn
 import torchvision.transforms as transforms
+
 from PIL import Image
 from flask import Flask, jsonify, request
-
+from torch.cuda.amp import autocast
+from timm.models import create_model
 
 app = Flask(__name__)
+
+checkpoint_path = './best_top1_validation.pth'
 imagenet_class_index = json.load(open('./index_to_name.json'))
-model = models.densenet121(pretrained=True)
+checkpoint = torch.load(checkpoint_path)
+
+class LotteNet(nn.Module):
+    def __init__(self, cfg):
+        super(LotteNet, self).__init__()
+        self.model = create_model(
+            model_name=cfg.model.model_name,
+            pretrained=cfg.model.pretrained,
+            num_classes=cfg.model.num_classes,
+            drop_rate=cfg.model.drop_rate,
+            drop_path_rate=cfg.model.drop_path,
+        )
+
+    @autocast()
+    def forward(self, x):
+        output = self.model(x)
+        return output
+
+def init_model(cfg, device):
+    model = LotteNet(cfg)
+
+    if device == 'cuda':
+        model = model.cuda()
+        model = nn.DataParallel(model)
+
+    return model
+
+model = init_model(cfg=checkpoint['cfg'],device='cuda')
+model.module.load_state_dict(checkpoint['model'])
 model.eval()
 
-
 def transform_image(image_bytes):
-    my_transforms = transforms.Compose([transforms.Resize(255),
+    my_transforms = transforms.Compose([transforms.Resize(256),
                                         transforms.CenterCrop(224),
                                         transforms.ToTensor(),
                                         transforms.Normalize(
@@ -40,6 +71,6 @@ def predict():
         class_id, class_name = get_prediction(image_bytes=img_bytes)
         return jsonify({'class_id': class_id, 'class_name': class_name})
 
-
 if __name__ == '__main__':
+
     app.run()
