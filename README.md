@@ -7,7 +7,7 @@
 ### Method
   * [Classification - efficientNet](https://github.com/mu-in/muin_DL/tree/main/Method/efficientnet)
   * [Detection - YOLO5](https://github.com/mu-in/muin_DL/tree/main/Method/yolov5)
-  * [Model Release]()
+  * [Model Release](https://github.com/mu-in/muin_DL/tree/main/Method/release)
 
 ### Data
    * [Source : Ai-Hub](https://aihub.or.kr/aidata/34145)
