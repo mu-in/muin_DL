@@ -36,7 +36,7 @@ def get_COCO_format_box(box, resolution):
     return [center_x / resolution[0], center_y / resolution[1], width / resolution[0], height / resolution[1]]
 
 
-def extract_edge_image(image):  ## 추가
+def extract_edge_image(image): # to make edge detection image
 
     img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     Ix = cv2.Sobel(img, ddepth=cv2.CV_64F, dx=1, dy=0, ksize=3)  # x 방향 계산
@@ -51,10 +51,21 @@ def extract_edge_image(image):  ## 추가
 
     return result
 
+def make_noise_bcg(to_paste, bcg_pathes): # to make noise bcg
+    rand_idx = random.randint(0,len(bcg_pathes)-1) # randomly select among noise bcgs
+    noise_bcg = cv2.imread(bcg_pathes[rand_idx])
 
+    fill_idx = to_paste == [255,255,255] # 흰색인 영역의 인덱스 추출
+    to_paste[fill_idx] = noise_bcg[fill_idx]
+    to_paste = cv2.medianBlur(to_paste, 13) # 경계 제거를 위한 중간값 필터
+
+    return to_paste
+    
 def CoPy_and_Paste(file_list, args, index):
     n_objects = random.randrange(5, 11)
-    to_paste = np.full((2988, 2988), 0, dtype=np.uint8)  # 배경이미지 검정
+    to_paste = np.full((2988, 2988, 3), 255, dtype=np.uint8)  # 배경이미지 검정
+
+    bcg_pathes = glob.glob(args.bcg_path + '/*.jpg') # noise background image path
 
     categories = list()
     resolutions = list()
@@ -145,6 +156,7 @@ def CoPy_and_Paste(file_list, args, index):
 
     # save final image
     image_path = os.path.join(args.save_path, 'img', f"img_{index}.jpg")
+    make_noise_bcg(to_paste, bcg_pathes) ## make_noise_bcg
     cv2.imwrite(image_path, to_paste)
 
     f = open(os.path.join(args.save_path, 'annotation', f"img_{index}.txt"), 'w')
@@ -166,6 +178,7 @@ def get_args():
     parser.add_argument("--data_num", type=int, default=None, help="args.data_number")
     parser.add_argument("--num_process", type=int, default=None, help="args.data_number")
     parser.add_argument("--extract_edge", type=int, default=None, help="args.extract_edge")
+    parser.add_argument("--bcg_path", type=str, default=None, help="bcg_path")
 
     args = parser.parse_args()
     return args
