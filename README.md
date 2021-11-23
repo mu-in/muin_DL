@@ -13,12 +13,7 @@
    * [Source : Ai-Hub](https://aihub.or.kr/aidata/34145)
    * [Data Preprocessing](https://github.com/mu-in/muin_DL/tree/main/Data)
 
-### Embedded board
-  * H/W : Nvidia Jetson NANO
-  * OS : Ubuntu 18.04.5
-  * OpenCV : 4.5.3.56
-  * Python : 3.6.9
 
 ### Demo
 
-  * 11월 중순까지
+  * TBA soon..!
