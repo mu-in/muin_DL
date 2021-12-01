@@ -60,6 +60,17 @@ def make_noise_bcg(to_paste, bcg_pathes): # to make noise bcg
     to_paste = cv2.medianBlur(to_paste, 13) # 경계 제거를 위한 중간값 필터
 
     return to_paste
+
+def rotate_img_45n(img):
+    # 45도, 135도, 225도, 315도 중 하나로 회전
+    rows,cols,_ = img.shape
+    M = cv2.getRotationMatrix2D((cols/2,rows/2), random.choice([45, 135, 225, 315]), 0.7)
+    rot_img = cv2.warpAffine(img,M,(cols,rows))
+    # 검정으로 바뀐 영역 다시 흰색으로
+    idx = rot_img == [0, 0, 0]
+    rot_img[idx] = 255
+
+    return rot_img 
     
 def CoPy_and_Paste(file_list, args, index):
     n_objects = random.randrange(5, 11)
@@ -97,6 +108,10 @@ def CoPy_and_Paste(file_list, args, index):
                                           obj_Info['comp_cd']['annotation']['filename']), cv2.IMREAD_COLOR)
         if args.extract_edge == 1:  ## 추가
             to_copy = extract_edge_image(to_copy)
+        
+        if args.rotate_img == 1: ## 추가
+            if random.randint(0,100) <= 50: # 40% 확률로 rotate
+                to_copy = rotate_img_45n(to_copy)
 
         imageHeight, imageWidth = to_copy.shape[:2]
 
@@ -178,6 +193,7 @@ def get_args():
     parser.add_argument("--data_num", type=int, default=None, help="args.data_number")
     parser.add_argument("--num_process", type=int, default=None, help="args.data_number")
     parser.add_argument("--extract_edge", type=int, default=None, help="args.extract_edge")
+    parser.add_argument("--rotate_img", type=int, default=None, help="args.rotate_img")
     parser.add_argument("--bcg_path", type=str, default=None, help="bcg_path")
 
     args = parser.parse_args()
