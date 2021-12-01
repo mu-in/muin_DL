@@ -1,4 +1,5 @@
 import io
+import base64
 import json
 import numpy as np
 import torch
@@ -17,9 +18,10 @@ from models.common import Conv
 from utils.datasets import LoadImages, LoadStreams
 from utils.general import non_max_suppression , scale_coords
 from utils.augmentations import letterbox
-
+from utils.plots import Annotator, colors
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 device = 'device'
 
 checkpoint_path = 'requirement/best_top1_validation.pth'
@@ -57,37 +59,41 @@ model.eval()
 
 def transform_image(boxes):
     total_input = list()
-    my_transforms = transforms.Compose([transforms.Resize(256),
-                                        transforms.CenterCrop(224),
+    my_transforms = transforms.Compose([transforms.Resize((224,224)),
                                         transforms.ToTensor(),
                                         transforms.Normalize(
                                             [0.485, 0.456, 0.406],
                                             [0.229, 0.224, 0.225])])
-    for box in boxes:
-        total_input.append(my_transforms(Image.fromarray(box)))
+    for i,box in enumerate(boxes):
+        cv2.imwrite('temp.png',box)
+        image = Image.open('temp.png').convert('RGB')
+        total_input.append(my_transforms(image))
     return torch.stack(total_input)
 
 
 def get_prediction(image_bytes): 
-    boxes = return_boxes(input_byte=image_bytes)
+    boxes,detected_img = return_boxes(input_byte=image_bytes)
     tensor = transform_image(boxes)
     tensor = tensor.cuda()
     outputs = model.forward(tensor)
     _, y_hat = outputs.max(1)
-    return y_hat.detach().cpu().numpy()
+    return y_hat.detach().cpu().numpy() , detected_img
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    output = dict()
+    response = dict()
     if request.method == 'POST':
         file = request.files['file']
         img_bytes = file.read()
-        predicted_labels = get_prediction(image_bytes=img_bytes)
+        predicted_labels , img = get_prediction(image_bytes=img_bytes)
+        output = list()
         for label in predicted_labels:
             id , name = imagenet_class_index[str(label)]
-            output[id] = name
-        return jsonify(output)
+            output.append({id:name})
+        response['output'] = output
+        response['img'] = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
+        return jsonify(response)
 
 
 class Ensemble(nn.ModuleList):
@@ -169,17 +175,22 @@ def return_boxes(input_byte):
     img = img.float()
     img /= 255.0  # 0 - 255 to 0.0 - 1.0
     img = img.permute(2,0,1)
+
     if len(img.shape) == 3:
         img = img[None]  # expand for batch dim
     pred = model(img, augment=False, visualize=False)[0]
     pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
+    annotator = Annotator(im0, line_width=3, example=str('object'))
+
     for i, det in enumerate(pred):  # per image
         if len(det):
             det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
             for *xyxy, conf, cls in reversed(det):
-                detected_box = im0[int(xyxy[1].item()):int(xyxy[3].item()),int(xyxy[0].item()):int(xyxy[2].item())]
+                detected_box = img0[int(xyxy[1].item()):int(xyxy[3].item()),int(xyxy[0].item()):int(xyxy[2].item())]
                 box_list.append(detected_box)
-    return box_list
+                label = 'object ' + str(round(conf.item(),2))
+                annotator.box_label(xyxy, label, color=colors(0, True))
+    return box_list, im0
 
 
 
