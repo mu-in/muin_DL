@@ -1,14 +1,8 @@
 ## Hardware
 
-* 상품을 촬영하기 위한 무인 매장 계산대 하드웨어 구현
-
-#### [Before]
-* 기존 성능 테스트를 위한 촬영
-
-
-#### [After]
-* 최종 하드웨어 구현
-
+#### 무인매장 계산대 하드웨어 구현
+* 기존 성능 테스트 위한 촬영 >> 최종 하드웨어
+![2](https://user-images.githubusercontent.com/32587029/144235528-3f31fb05-c9d8-47c3-8dda-6724909a1fce.JPG)
 
 ---
 ## POS GUI - Search
@@ -25,5 +19,6 @@
 * [블로그](https://smlee729.github.io/python/natural%20language%20processing/2015/12/29/korean-letter-processing-search.html)
 
 #### Example
-![1](https://user-images.githubusercontent.com/32587029/144233739-f84f74e7-ea04-4087-9539-5b6f178bf0ed.JPG)
+![3](https://user-images.githubusercontent.com/32587029/144235547-c7fa5bfe-5eb0-43b8-b2ee-f41c11b13a74.JPG)
+
 
