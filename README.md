@@ -15,7 +15,7 @@
 
 ### ETC
    * [Hardware]()
-   * [Search Algorithm]()
+   * [Search](https://github.com/mu-in/muin_DL/blob/main/ETC/search.ipynb)
 
 ### Demo
 
