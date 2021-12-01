@@ -1,6 +1,7 @@
 import pandas as pd
 
-df = pd.read_csv('products.csv')
+# 주소 변경
+df = pd.read_csv('./data/products.csv')
 df = df.loc[:,['data_id','category_large','name','price']]
 df.columns = ['id','category','name','price']
 

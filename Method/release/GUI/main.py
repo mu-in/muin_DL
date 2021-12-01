@@ -1,16 +1,19 @@
+from tkinter import *
 import tkinter.ttk as ttk
+import tkinter.font as tkFont
+from PIL import Image, ImageTk
+from functools import partial
+
 import numpy as np
 import pandas as pd
 import cv2
-import requests 
-import kakaopay
-import similar
+
 import requests
 
-from typing import List
-from tkinter import *
-from functools import partial
-from PIL import Image, ImageTk
+from module import similar
+from module import kakaopay
+from module import key
+from data import dummy
 
 ''' init '''
 cam = cv2.VideoCapture(0)
@@ -18,14 +21,10 @@ data = []
 quantity = 0
 amount = 0
 similarList = pd.DataFrame()
-url = "https://e9af-203-250-148-130.ngrok.io/predict" 
-database = pd.read_csv('products.csv')
 
+database = pd.read_csv('./data/products.csv')
 
-def send_data(url): 
-    files = {'file':open('captured_img.png', 'rb') } 
-    res = requests.post(url,files=files) 
-    return res.json()
+url = key.MODEL_URL + '/predict'
 
 ''' func '''
 def init():
@@ -42,15 +41,26 @@ def init():
     picture.configure(image=imgtk)
     btn1.config(text='촬영')
 
+def sendData(url): 
+    files = {'file':open('./data/captured_img.png', 'rb') } 
+    res = requests.post(url,files=files) 
+    
+    return res.json()
+
 def updateList(data):
     global quantity, amount
-
-    table.delete(*table.get_children()) # init list
-
     total_quantity = 0
     total_amount = 0
+
+    table.delete(*table.get_children())
+
     for i in range(0,len(data)):
-        table.insert("",'end',text=f"no.{i}",
+        if i%2==0 : 
+            tagname = 'evenrow'
+        else : 
+            tagname = 'oddrow'
+
+        table.insert("",'end',tag=tagname,
             values=(
                 i+1,
                 data[i]['category'],
@@ -59,34 +69,45 @@ def updateList(data):
                 data[i]['quantity'],
                 data[i]['price']*data[i]['quantity']
             )
-        )  
+        ) 
         total_quantity+=data[i]['quantity']
         total_amount+=data[i]['price']*data[i]['quantity']
 
-        plus[i].place(x=400,y=30+(i*40))
-        minus[i].place(x=330,y=30+(i*40))
-    
-    count.config(text=str(total_quantity),font=('',25),foreground='#0076BA')
-    total.config(text=str(total_amount),font=('',25),foreground='#0076BA')
+        plus[i].place(x=410,y=30+(i*40),width=30,height=30)
+        minus[i].place(x=340,y=30+(i*40),width=30,height=30)
+
+    count.config(text=str(total_quantity),font=gothic30b)
+    total.config(text=str(total_amount),font=gothic30b)
+
+    table.tag_configure('evenrow',background='#f2f2f2')
+    table.tag_configure('oddrow',background='#ffffff')
     
     quantity = total_quantity
     amount = total_amount
 
-
 def onCapture():
     global data
+    
+    init()
     ret,img = cam.read()
     if ret == False:
         print("Camera is Not Ready!")
         exit()
     
-    cv2.imwrite('captured_img.png',img)
-    resize_img = cv2.resize(img,dsize=(240,140),interpolation=cv2.INTER_AREA)
-    response = send_data(url)
+    # test
+    img = cv2.imread('./data/test.jpeg',cv2.IMREAD_COLOR)
 
-    GUI_img = Image.fromarray(resize_img) # 모델에 이시키 가져가면 될듯?
+    cv2.imwrite('./data/captured_img.png',img)
+
+    resize_img = cv2.resize(img,dsize=(240,140),interpolation=cv2.INTER_AREA)
+    cvt_img = cv2.cvtColor(resize_img,cv2.COLOR_BGR2RGB)
+
+    GUI_img = Image.fromarray(cvt_img)
     imgtk = ImageTk.PhotoImage(image=GUI_img)
 
+    response = sendData(url)
+    
+    #detected_data = dummy.data
     detected_data = list()
     status = dict()
 
@@ -103,7 +124,7 @@ def onCapture():
         item = {
             "id" : info['data_id'].item(),
             "category" : info['category_large'].item(),
-            "name" : info['category_small'].item(),
+            "name" : info['name'].item(),
             "price" : info['price'].item(), 
             "quantity" : status[key]
         }
@@ -113,6 +134,8 @@ def onCapture():
     picture.imgtk = imgtk
     picture.configure(image=imgtk)
     btn1.config(text='재촬영')
+    
+    data = detected_data
 
     updateList(detected_data)
 
@@ -130,7 +153,7 @@ def minusCount(i):
     updateList(data)
 
 '''  popup '''
-def open_search():
+def openSearch():
     def destroy():
         search.destroy()
 
@@ -159,20 +182,21 @@ def open_search():
     search = Toplevel(tk)
     search.title('상품 검색')
     search.geometry("300x550+100+100")
+    search.configure(background='#f2f2f2')
 
     text = Label(search)
-    text.config(text='상품 검색',font=('',20))
+    text.config(text='상품 검색',font=gothic20b,background='#f2f2f2')
     text.place(x=110,y=50)
 
-    input = Entry(search, width=23)
-    input.place(x=17,y=100)
+    input = Entry(search,highlightbackground='#f2f2f2')
+    input.place(x=17,y=100,width=210)
 
-    set = Button(search, width=1, height=1, command=getEntry)
+    set = Button(search, command=getEntry, highlightbackground='#f2f2f2',highlightthickness=0, font=gothic13, bg='#ffffff')
     set.config(text='검색')
-    set.place(x=250,y=100)
+    set.place(x=230,y=100,width=50,height=30)
 
     # output
-    sframe1 =  Frame(search,highlightbackground='black',highlightthickness=1)
+    sframe1 =  Frame(search,highlightbackground='#A5AEBA',highlightthickness=0)
     sframe1.config(width=265,height=150)
     sframe1.place(x=17,y=150)
 
@@ -185,23 +209,15 @@ def open_search():
 
     sscrollbar['command']=slistbox.yview
 
-    sframe2 = Frame(search,highlightbackground='black',highlightthickness=1)
-    sframe2.config(width=265,height=80)
-    sframe2.place(x=17,y=350)
-
-    sbtn1 = Button(sframe2, width=25, height=4, command=updateData)
+    sbtn1 = Button(search, width=25, height=4, command=updateData, highlightbackground='#f2f2f2',highlightthickness=0, font=gothic20b, bg='#FA6D6E',fg='#FA6D6E')#,fg='#ffffff')
     sbtn1.config(text='추가')
-    sbtn1.place(x=0,y=0)
+    sbtn1.place(x=17,y=350, width=265,height=80)
 
-    sframe3 = Frame(search,highlightbackground='black',highlightthickness=1)
-    sframe3.config(width=265,height=80)
-    sframe3.place(x=17,y=450)
-
-    sbtn2 = Button(sframe3, width=25, height=4, command=destroy)
+    sbtn2 = Button(search, width=25, height=4, command=destroy, highlightbackground='#f2f2f2',highlightthickness=0, font=gothic20b, bg='#ffffff')
     sbtn2.config(text='취소')
-    sbtn2.place(x=0,y=0)
+    sbtn2.place(x=17,y=450, width=265,height=80)
 
-def open_payment():
+def openPayment():
     def destroy():
         payment.destroy()
 
@@ -213,83 +229,85 @@ def open_payment():
     payment = Toplevel(tk)
     payment.title('결제')
     payment.geometry("300x550+100+100")
+    payment.configure(background='#f2f2f2')
 
     text = Label(payment)
-    text.config(text='상품 결제',font=('',20))
+    text.config(text='상품 결제',font=gothic20b,background='#f2f2f2')
     text.place(x=110,y=50)
 
-    pframe1 = Frame(payment,highlightbackground='black',highlightthickness=1)
-    pframe1.config(width=265,height=150)
-    pframe1.place(x=17,y=130)
+    pframe = Frame(payment,highlightbackground='#A5AEBA',highlightthickness=1,background='#ffffff')
+    pframe.config(width=265,height=150)
+    pframe.place(x=17,y=130)
 
-    text = Label(payment)
-    text.config(text=f'총 {quantity} 개',font=('',15))
-    text.place(x=123,y=180)
+    text = Label(payment,font=gothic15b,background='#ffffff', foreground='#5E5E5E')
+    text.config(text=f'총 {quantity} 개')
+    text.place(x=123,y=160)
 
-    text = Label(payment)
-    text.config(text=amount,font=('',20))
-    text.place(x=95,y=220)
+    text = Label(payment,font=gothic30b,background='#ffffff', foreground='#FA6D6E')
+    text.config(text=f"{amount} 원")
+    text.place(x=95,y=200)
 
-    text = Label(payment)
-    text.config(text='원',font=('',20))
-    text.place(x=160,y=220)
-
-    pframe2 = Frame(payment,highlightbackground='black',highlightthickness=1)
-    pframe2.config(width=265,height=80)
-    pframe2.place(x=17,y=350)
-
-    pbtn1 = Button(pframe2, width=25, height=4, command=kakaoApi)
+    pbtn1 = Button(payment, width=25, height=4, command=kakaoApi, highlightbackground='#f2f2f2',highlightthickness=0,font=gothic20b,bg='#FA6D6E',fg='#FA6D6E')#,fg='#ffffff')
     pbtn1.config(text='결제')
-    pbtn1.place(x=0,y=0)
+    pbtn1.place(x=17,y=350,width=265,height=80)
 
-    pframe3 = Frame(payment,highlightbackground='black',highlightthickness=1)
-    pframe3.config(width=265,height=80)
-    pframe3.place(x=17,y=450)
-
-    sbtn2 = Button(pframe3, width=25, height=4, command=destroy)
-    sbtn2.config(text='취소')
-    sbtn2.place(x=0,y=0)
+    pbtn2 = Button(payment, width=25, height=4, command=destroy,highlightbackground='#f2f2f2',highlightthickness=0,font=gothic20b,bg='#ffffff')
+    pbtn2.config(text='취소')
+    pbtn2.place(x=17,y=450, width=265,height=80)
 
 if __name__ == '__main__':
-
     ''' tkinter '''
     tk = Tk()
     tk.title('muin')
     tk.geometry('965x650+30+30') # 가로 x 세로 + x좌표 + y좌표
     tk.resizable(False,False) # 크기 변경 불가
+    tk.configure(background='#C5D1D9')
+    
+    # font set
+    gothic13 = tkFont.Font(family='Malgun Gothic',weight='normal',size=13,slant='roman')
+    gothic15 = tkFont.Font(family='Malgun Gothic',weight='normal',size=15,slant='roman')
+    gothic15b = tkFont.Font(family='Malgun Gothic',weight='bold',size=15,slant='roman')
+    gothic20b = tkFont.Font(family='Malgun Gothic',weight='bold',size=20,slant='roman')
+    gothic30b = tkFont.Font(family='Malgun Gothic',weight='bold',size=30,slant='roman')
 
     # cam
-    frame1 = Frame(tk,highlightbackground='black',highlightthickness=1)
-    frame1.config(width=265,height=165)
+    frame1 = Frame(tk,highlightbackground='#A4AEBA',highlightthickness=1)
+    frame1.config(width=265,height=165, background='#3C3F44')
     frame1.place(x=50,y=50)
 
     picture = Label(tk)
+    picture.configure(background='#3C3F44')
     picture.grid(row=10,columns=10)
     picture.place(x=60,y=60)
 
     # notice
-    frame2 = Frame(tk,highlightbackground='black',highlightthickness=1)
+    frame2 = Frame(tk,highlightbackground='#A4AEBA',highlightthickness=1)
+    frame2.configure(background='#ffffff')
     frame2.config(width=265,height=260)
     frame2.place(x=50,y=250)
 
     text = Label(frame2)
     text.config(text='[ 사용방법 ]')
+    text.configure(background='#fbff00',font=gothic15b)
     text.place(x=10,y=10)
 
     text = Label(frame2)
     text.config(text='1. 상품을 계산대 위에 올립니다.\n2. 촬영 버튼을 누릅니다.\n3.상품 리스트 확인 후 결제 버튼을 누릅니다.')
+    text.configure(background='#ffffff',font=gothic13)
     text.place(x=10,y=40)
 
     text = Label(frame2)
     text.config(text='[ 주의사항 ]')
+    text.configure(background='#fbff00',font=gothic15b)
     text.place(x=10,y=120)
 
     text = Label(frame2)
     text.config(text='1. 물품을 겹치면 인식이 안됩니다.\n2. 인식 오류 시 재촬영을 누르세요.\n3. 상품 검색버튼으로 추가할 수 있습니다.')
+    text.configure(background='#ffffff',font=gothic13)
     text.place(x=10,y=150)
 
     # list
-    frame3 = Frame(tk,highlightbackground='black',highlightthickness=1)
+    frame3 = Frame(tk,highlightbackground='#A4AEBA',highlightthickness=1)
     frame3.config(width=565,height=350)
     frame3.place(x=350,y=50)
 
@@ -307,9 +325,9 @@ if __name__ == '__main__':
 
     table['columns'] = ("1","2","3","4","5","6",)
     table['show']='headings'
-    table.column("1",width=40,anchor='c')
+    table.column("1",width=20,anchor='c')
     table.column("2",width=90,anchor='c')
-    table.column("3",width=140,anchor='c')
+    table.column("3",width=160,anchor='c')
     table.column("4",width=60,anchor='c')
     table.column("5",width=120,anchor='c')
     table.column("6",width=100,anchor='c')
@@ -325,63 +343,60 @@ if __name__ == '__main__':
     minus = []
 
     for i in range(20):
-        plus.append(Button(table, width=1, height=1))
-        minus.append(Button(table, width=1, height=1))
+        plus.append(Button(table,highlightthickness=0))
+        minus.append(Button(table,highlightthickness=0))
 
     for i in range(20):
-        plus[i].config(text='+',command=partial(plusCount,i))
-        minus[i].config(text='-',command=partial(minusCount,i))
+        if i%2==0: bgColor = '#f2f2f2'
+        else : bgColor = '#ffffff'
+
+        plus[i].config(text='+',command=partial(plusCount,i),highlightbackground=bgColor,font=gothic15b,bg='#FA6D6E',fg='#FA6D6E')
+        minus[i].config(text='-',command=partial(minusCount,i),highlightbackground=bgColor,font=gothic15b,bg='#0076BA',fg='#0076BA')
 
     # result
-    frame4 = Frame(tk,highlightbackground='black',highlightthickness=1)
+    frame4 = Frame(tk,highlightbackground='#A4AEBA',highlightthickness=1)
     frame4.config(width=565,height=80)
+    frame4.configure(background='#ffffff')
     frame4.place(x=350,y=430)
 
     text = Label(frame4)
     text.config(text='총 수량',font=('',15),foreground='#5E5E5E')
+    text.configure(background='#ffffff',font=gothic20b)
     text.place(x=20,y=25)
 
     text = Label(frame4)
     text.config(text='개',font=('',15),foreground='#5E5E5E')
-    text.place(x=140,y=25)
+    text.configure(background='#ffffff',font=gothic20b)
+    text.place(x=180,y=25)
 
     count = Label(frame4)
     count.config(text='0',font=('',25),foreground='#0076BA')
-    count.place(x=100,y=18)
+    count.configure(background='#ffffff',font=gothic30b)
+    count.place(x=120,y=18)
 
     total = Label(frame4)
     total.config(text='0',font=('',25),foreground='#0076BA')
+    total.configure(background='#ffffff',font=gothic30b)
     total.place(x=380,y=18)
 
     text = Label(frame4)
     text.config(text='원',font=('',15),foreground='#5E5E5E')
+    text.configure(background='#ffffff',font=gothic20b)
     text.place(x=500,y=25)
 
     # capture btn
-    frame5 = Frame(tk,highlightbackground='black',highlightthickness=1)
-    frame5.config(width=265,height=80)
-    frame5.place(x=50,y=530)
-
-    btn1 = Button(frame5, width=25, height=4, command=onCapture)
+    btn1 = Button(tk, highlightbackground='#C5D1D9',command=onCapture, font=gothic20b, bg='#FA6D6E',fg='#FA6D6E')#,fg='#ffffff')
     btn1.config(text='촬영')
-    btn1.place(x=0,y=0)
+    btn1.place(x=50,y=530, width=265, height=80)
 
     # search btn
-    frame6 = Frame(tk,highlightbackground='black',highlightthickness=1)
-    frame6.config(width=265,height=80)
-    frame6.place(x=350,y=530)
-
-    btn2 = Button(frame6, width=25, height=4, command=open_search)
+    btn2 = Button(tk, highlightbackground='#C5D1D9',command=openSearch, font=gothic20b, bg='#ffffff')
     btn2.config(text='상품 검색')
-    btn2.place(x=0,y=0)
+    btn2.place(x=350,y=530, width=265, height=80)
 
     # pay btn
-    frame7 = Frame(tk,highlightbackground='black',highlightthickness=1)
-    frame7.config(width=265,height=80)
-    frame7.place(x=650,y=530)
-
-    btn2 = Button(frame7, width=25, height=4, command=open_payment)
-    btn2.config(text='결제')
-    btn2.place(x=0,y=0)
+    btn3 = Button(tk, highlightbackground='#C5D1D9', command=openPayment, font=gothic20b, bg='#ffffff')
+    btn3.config(text='결제')
+    btn3.place(x=650,y=530,width=265, height=80)
 
     tk.mainloop()
