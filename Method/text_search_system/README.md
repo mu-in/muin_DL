@@ -1,12 +1,3 @@
-## Hardware
-
-#### 무인매장 계산대 하드웨어 구현
-* 재료: 우드락, 절연 테이프, 초강력 본드, 'ㄷ'자형 벽걸이용 책꽂이, 클립형 무선 LED 조명등, 웹캠(ABKO, 1080 FHD) 등
-* 영상의 선명도와 그림자를 고려하여 2개의 LED 조명등 활용
-* 최종 발표 전 프로토타입으로써 80% 완성   
-![2](https://user-images.githubusercontent.com/32587029/144235528-3f31fb05-c9d8-47c3-8dda-6724909a1fce.JPG)
-
----
 ## POS GUI - Search
 
 #### Function
