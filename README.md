@@ -13,10 +13,6 @@
    * [Source : Ai-Hub](https://aihub.or.kr/aidata/34145)
    * [Data Preprocessing](https://github.com/mu-in/muin_DL/tree/main/Data)
 
-### ETC
-   * [Hardware](https://github.com/mu-in/muin_DL/tree/main/ETC)
-   * [Search](https://github.com/mu-in/muin_DL/blob/main/ETC/search.ipynb)
-
 ### Demo
 
   * TBA soon..!
